@@ -1,84 +1,76 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const generateToken = require("../utils/generateToken");
+const User = require('../models/User');
+const generateToken = require('../utils/generateToken');
 
-// Register user
+// @desc    Register a new user
+// @route   POST /api/auth/register
+// @access  Public
 const registerUser = async (req, res) => {
   try {
     const { name, email, password, role, phone, address } = req.body;
 
-    if (!name || !email || !password) {
-      return res.status(400).json({ message: "Please provide all required fields" });
-    }
-
+    // Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: 'User already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+    // Create new user (password hashing happens in model via pre-save)
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
-      role: role || "customer",
+      password,
+      role,
       phone,
       address,
     });
 
     res.status(201).json({
-      success: true,
-      message: "User registered successfully",
+      message: 'User registered successfully',
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-        phone: user.phone,
-        address: user.address,
       },
-      token: generateToken(user._id),
+      token: generateToken(user._id, user.role),
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Login user
+// @desc    Login user
+// @route   POST /api/auth/login
+// @access  Public
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Check password using our model method
+    const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     res.status(200).json({
-      success: true,
-      message: "Login successful",
+      message: 'Login successful',
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-        phone: user.phone,
-        address: user.address,
       },
-      token: generateToken(user._id),
+      token: generateToken(user._id, user.role),
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = {
-  registerUser,
-  loginUser,
-};
+module.exports = { registerUser, loginUser };

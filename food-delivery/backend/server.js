@@ -1,12 +1,11 @@
-const dns = require("dns");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
-const restaurantRoutes = require("./routes/restaurantRoutes");
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
 
@@ -17,11 +16,10 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/api/auth", authRoutes);
-app.use("/api/restaurants", restaurantRoutes);
+app.use('/api/auth', authRoutes);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Food Ordering API is running..." });
+app.get('/', (req, res) => {
+  res.json({ message: 'Food Ordering API is running...' });
 });
 
 const PORT = process.env.PORT || 5000;
