@@ -1,55 +1,160 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  font-family: "Segoe UI", sans-serif;
+  background: #111827;
 }
 
-.auth-container {
+.auth-split-page {
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+}
+
+.auth-left {
+  position: relative;
   display: flex;
-  justify-content: center;
+  align-items: flex-end;
+  padding: 60px;
+  background:
+    linear-gradient(rgba(14, 23, 43, 0.55), rgba(14, 23, 43, 0.78)),
+    url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-left-overlay {
+  max-width: 520px;
+  color: #fff;
+}
+
+.brand-tag {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.auth-left h1 {
+  margin: 0 0 16px;
+  font-size: 48px;
+  line-height: 1.15;
+}
+
+.brand-text {
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.auth-right {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background:
+    radial-gradient(circle at top, rgba(255, 90, 95, 0.15), transparent 30%),
+    linear-gradient(135deg, #111827 0%, #1f2937 100%);
 }
 
 .auth-card {
   width: 100%;
-  max-width: 400px;
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+  padding: 34px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(14px);
 }
 
 .auth-card h2 {
-  margin-bottom: 20px;
+  margin: 0 0 22px;
   text-align: center;
+  font-size: 30px;
+  color: #fff;
 }
 
 .auth-card input,
 .auth-card select {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  color: #c17676;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.auth-card input::placeholder {
+  color: #f5f6f7;
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+  border-color: #ff5a5f;
+  box-shadow: 0 0 0 3px rgba(255, 90, 95, 0.2);
 }
 
 .auth-card button {
   width: 100%;
-  padding: 12px;
-  background: #ff5a5f;
-  color: white;
+  padding: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff5a5f, #ff7a59);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .auth-card button:hover {
-  background: #e14b50;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255, 90, 95, 0.3);
+}
+
+.auth-switch {
+  margin-top: 16px;
+  text-align: center;
+  color: #d1d5db;
+}
+
+.auth-switch a {
+  color: #ff8a65;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .message {
   margin-top: 12px;
   text-align: center;
-  color: #333;
+  color: #fca5a5;
+}
+
+@media (max-width: 900px) {
+  .auth-split-page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-left {
+    min-height: 260px;
+    padding: 28px;
+  }
+
+  .auth-left h1 {
+    font-size: 32px;
+  }
+
+  .brand-text {
+    font-size: 16px;
+  }
+
+  .auth-right {
+    padding: 20px;
+  }
 }

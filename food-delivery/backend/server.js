@@ -13,6 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const socketHandler = require('./socket/socketHandler');
 
+
 dotenv.config();
 
 const app = express();
@@ -40,7 +41,7 @@ connectDB();
 
 // Routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/restaurants', restaurantRoutes);
+//s app.use('/api/restaurants', restaurantRoutes);
 // app.use('/api/menu', menuRoutes);
 app.use('/api/orders', orderRoutes);
 
