@@ -4,6 +4,7 @@ import authReducer from "../features/auth/authSlice";
 import networkReducer from "../features/network/networkSlice";
 import productReducer from "../features/products//productsSlice";
 import orderReducer from "../features/orders/orderSlice";
+import reviewReducer from "../features/review/reviewSlice";
 
 export const store = configureStore ({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore ({
         network: networkReducer,
         products: productReducer,
         orders: orderReducer,
+        review: reviewReducer,
     },
 });

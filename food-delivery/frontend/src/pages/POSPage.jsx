@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setOnlineStatus } from "../features/network/networkSlice";
 import {
   addToCart,
@@ -14,19 +15,15 @@ import { createOrder } from "../features/orders/orderSlice";
 
 function POSPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { items, subtotal, discount, tax, total } = useSelector(
     (state) => state.cart
   );
-
   const { online } = useSelector((state) => state.network);
-
-  const {
-    items: products,
-    loading,
-    error,
-  } = useSelector((state) => state.products);
-
+  const { items: products, loading, error } = useSelector(
+    (state) => state.products
+  );
   const {
     loading: orderLoading,
     error: orderError,
@@ -47,7 +44,6 @@ function POSPage() {
 
   const handleBarcodeSubmit = () => {
     const scanned = barcodeInput.trim().toLowerCase();
-
     const matchedProduct = products.find((product) =>
       product.name.toLowerCase().includes(scanned)
     );
@@ -87,7 +83,7 @@ function POSPage() {
 
     if (createOrder.fulfilled.match(resultAction)) {
       dispatch(clearCart());
-      alert("Order placed successfully!");
+      navigate("/checkout");
     }
   };
 
@@ -107,10 +103,7 @@ function POSPage() {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   useEffect(() => {
@@ -149,7 +142,8 @@ function POSPage() {
 
       {!online && (
         <p className="mb-4 rounded-lg bg-red-900 px-4 py-2 text-sm text-red-200">
-          You are offline. Some POS actions may not sync until connection returns.
+          You are offline. Some POS actions may not sync until connection
+          returns.
         </p>
       )}
 
