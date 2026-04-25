@@ -1,24 +1,13 @@
-import { useNavigate } from "react-router-dom";
-
-function Home() {
-    const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    const handleLogout = () =>{
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        navigate("/login");
-    };
-
-    return (
-        <div style={{padding: "40px"}}>
-            <h1>Integrated Food Delivery and Dine-out Platform</h1>
-            <p>Welcome, {user?.name}</p>
-            <p>Email: {user?.email}</p>
-            <p>Role: {user?.role}</p>
-            <button onClick={handleLogout}>Logout</button>
-        </div>
-    );
-}
-
+const Home = () => {
+  return (
+    <div className='p-6'>
+      <h1 className='text-3xl font-bold text-orange-500'>
+        Welcome to FoodApp 🍔
+      </h1>
+      <p className='mt-2 text-gray-600'>
+        Order delicious food from restaurants near you!
+      </p>
+    </div>
+  );
+};
 export default Home;

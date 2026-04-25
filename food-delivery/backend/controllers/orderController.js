@@ -1,6 +1,6 @@
 const Order = require('../models/Order');
 const MenuItem = require('../models/MenuItem');
-const Restaurants = require('../models/Restaurants');
+const Restaurants = require('../models/Restaurant');
 
 // @desc    Place a new order
 // @route   POST /api/orders
